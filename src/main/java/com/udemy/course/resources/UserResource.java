@@ -45,7 +45,15 @@ public class UserResource {
 		//grabs uri address of the inserted objected
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 		
-		//.created() returns 201 HHTP code
+		//created() returns 201 HTTP code
 		return ResponseEntity.created(uri).build();
+	}
+	
+	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
+	public ResponseEntity<User> delete(@PathVariable String id) {
+		service.delete(id);
+		
+		//noContent() returns 204 HTTP code
+		return ResponseEntity.noContent().build();
 	}
 }
