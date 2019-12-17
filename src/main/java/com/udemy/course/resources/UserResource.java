@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.udemy.course.domain.Post;
 import com.udemy.course.domain.User;
 import com.udemy.course.dto.UserDTO;
 import com.udemy.course.services.UserService;
@@ -65,5 +66,11 @@ public class UserResource {
 		
 		//noContent() returns 204 HTTP code
 		return ResponseEntity.noContent().build();
+	}
+	
+	@RequestMapping(value="/{id}/posts", method=RequestMethod.GET)
+	public ResponseEntity<List<Post>> findPost(@PathVariable String id) {
+		User obj = service.findById(id);
+		return ResponseEntity.ok().body(obj.getPosts());
 	}
 }
